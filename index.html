@@ -29,10 +29,13 @@
     }
 
     .container{
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px 16px 40px;
-    }
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 16px 10px 32px;
+        }
+
+
 
     .header{
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -157,10 +160,10 @@
     }
 
     .board{
-      display:grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-    }
+        display:grid;
+        grid-template-columns: repeat(var(--board-cols, 4), minmax(0, 1fr));
+        gap: 12px;
+        }
 
     .card{
       aspect-ratio: 1 / 1;
@@ -210,14 +213,15 @@
     }
 
     .card-back{
-      background: #fff;
-      color: var(--text);
-      border: 2px solid #dbeafe;
-      transform: rotateY(180deg);
-      font-size: clamp(0.82rem, 1.2vw, 1rem);
-      line-height: 1.25;
-      font-weight: 700;
-    }
+        background: #fff;
+        color: var(--text);
+        border: 2px solid #dbeafe;
+        transform: rotateY(180deg);
+        font-size: clamp(0.75rem, 1vw, 0.95rem);
+        line-height: 1.2;
+        font-weight: 700;
+        }
+
 
     .card.matched .card-back{
       border-color: #b7f0d8;
@@ -323,23 +327,53 @@
       background:#eef2ff;
       color:var(--primary);
     }
+    .creditos{
+        margin-top: 24px;
+        padding: 16px 12px;
+        text-align: center;
+        font-size: 0.95rem;
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px 16px;
+        }
+
+        .link-icone{
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--primary);
+        font-weight: 700;
+        text-decoration: none;
+        }
+
+        .link-icone:hover{
+        text-decoration: underline;
+        }
+
+        .icone{
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+        flex: 0 0 auto;
+        }
+
+        .youtube{
+        color: #ff0000;
+        }
 
     .badge.ok{ background:#e9fbf5; color:#116149; }
     .badge.bad{ background:#fff1ed; color:#b93815; }
 
     @media (max-width: 980px){
-      .board{
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
       .topbar{
         grid-template-columns: repeat(2, minmax(140px, 1fr));
       }
     }
 
     @media (max-width: 640px){
-      .board{
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
       .card{
         aspect-ratio: 1 / 0.9;
       }
@@ -352,15 +386,16 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header class="header">
       <h1>Jogo da Memória — Porcentagem, Aumentos e Descontos</h1>
-      <p>
+        <p id="headerDescription">
         Encontre os pares corretos entre conceito e aplicação. Cada partida tem
-        <strong>3 rodadas</strong>. Em cada rodada aparecem <strong>20 cards aleatórios</strong>
-        (10 pares), escolhidos de um banco total com <strong>50 cards</strong> (25 pares).
-      </p>
+        <strong>3 rodadas</strong>. Em cada rodada aparecem <strong id="cardsPerRoundHeader">20 cards aleatórios</strong>
+        (<span id="pairsPerRoundHeader">10 pares</span>), escolhidos de um banco total com <strong>50 cards</strong> (25 pares).
+        </p>
     </header>
 
     <section class="topbar">
@@ -393,7 +428,7 @@
       Ao final das 3 rodadas, o jogo mostrará os <strong>3 conceitos em que você mais errou</strong>,
       para anotar e revisar.
       <div class="legend">
-        <span class="badge">20 cartas por rodada</span>
+        <span class="badge" id="cardsPerRoundBadge">20 cartas por rodada</span>
         <span class="badge ok">3 rodadas</span>
         <span class="badge bad">Top 3 para revisão</span>
       </div>
@@ -417,6 +452,23 @@
         </div>
       </section>
     </main>
+    <footer class="creditos">
+        <span>Produzido por Prof. Flávio E. S. da Cunha   | </span>
+
+        <a href="mailto:flavioescunha@gmail.com" class="link-icone">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icone">
+            <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2v.01L12 13l8-4.99V8H4zm16 8V10.3l-7.47 4.67a1 1 0 0 1-1.06 0L4 10.3V16h16z"/>
+            </svg>
+            <span>flavioescunha@gmail.com   |</span>
+        </a>
+
+        <a href="https://youtube.com/@FisicaECiencia" target="_blank" rel="noopener noreferrer" class="link-icone">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icone youtube">
+            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.8 31.8 0 0 0 0 12a31.8 31.8 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.8 31.8 0 0 0 24 12a31.8 31.8 0 0 0-.5-5.8zM9.75 15.5v-7L16 12l-6.25 3.5z"/>
+            </svg>
+            <span>youtube.com/@FisicaECiencia</span>
+        </a>
+        </footer>
   </div>
 
   <script>
@@ -453,7 +505,9 @@
     ];
 
     const TOTAL_ROUNDS = 3;
-    const PAIRS_PER_ROUND = 10; // 10 pares = 20 cartas por rodada
+    const PAIRS_PER_ROUND = 8;
+    const CARDS_PER_ROUND = PAIRS_PER_ROUND * 2;
+
 
     // =========================================================
     // ESTADO DO JOGO
@@ -488,11 +542,135 @@
     const startBtn = document.getElementById("startBtn");
     const nextBtn = document.getElementById("nextBtn");
 
+    const cardsPerRoundHeader = document.getElementById("cardsPerRoundHeader");
+    const pairsPerRoundHeader = document.getElementById("pairsPerRoundHeader");
+    const cardsPerRoundBadge = document.getElementById("cardsPerRoundBadge");
+
+    function updateStaticTexts() {
+    if (cardsPerRoundHeader) {
+        cardsPerRoundHeader.textContent = `${CARDS_PER_ROUND} cards aleatórios`;
+    }
+    if (pairsPerRoundHeader) {
+        pairsPerRoundHeader.textContent = `${PAIRS_PER_ROUND} pares`;
+    }
+    if (cardsPerRoundBadge) {
+        cardsPerRoundBadge.textContent = `${CARDS_PER_ROUND} cartas por rodada`;
+    }
+    }
+
+    const BOARD_GAP = 12;
+    const MIN_CARD_WIDTH_DESKTOP = 95;
+    const MIN_CARD_WIDTH_MOBILE = 78;
+
+function getDivisors(n) {
+  const divisors = [];
+  for (let i = 1; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      divisors.push(i);
+      if (i !== n / i) divisors.push(n / i);
+    }
+  }
+  return divisors.sort((a, b) => a - b);
+}
+
+function chooseBestColumns(totalCards) {
+  if (totalCards <= 0) return 1;
+
+  const boardWidth =
+    board.clientWidth ||
+    board.parentElement?.clientWidth ||
+    window.innerWidth ||
+    800;
+
+  const boardTop = board.getBoundingClientRect().top;
+  const availableHeight = Math.max(180, window.innerHeight - boardTop - 24);
+
+  const isMobile = window.innerWidth <= 640;
+  const minCardWidth = isMobile ? MIN_CARD_WIDTH_MOBILE : MIN_CARD_WIDTH_DESKTOP;
+  const cardAspect = isMobile ? (1 / 0.9) : 1;
+
+  // máximo de colunas que cabem pela largura
+  const maxColsByWidth = Math.max(
+    1,
+    Math.floor((boardWidth + BOARD_GAP) / (minCardWidth + BOARD_GAP))
+  );
+
+  // só considera números de colunas que dividem exatamente o total de cards
+  const divisors = getDivisors(totalCards)
+    .filter(cols => cols <= maxColsByWidth)
+    .sort((a, b) => b - a); // maior número de colunas primeiro
+
+  if (divisors.length === 0) {
+    return 1;
+  }
+
+  let bestFit = null;
+  let bestOverflow = null;
+
+  for (const cols of divisors) {
+    const rows = totalCards / cols; // divisão exata
+    const cardWidth = (boardWidth - (cols - 1) * BOARD_GAP) / cols;
+    const cardHeight = cardWidth / cardAspect;
+    const totalGridHeight = rows * cardHeight + (rows - 1) * BOARD_GAP;
+    const fits = totalGridHeight <= availableHeight;
+
+    const candidate = {
+      cols,
+      rows,
+      cardWidth,
+      cardHeight,
+      totalGridHeight
+    };
+
+    if (fits) {
+      // entre os que cabem sem rolagem:
+      // 1) prefere cards maiores
+      // 2) em empate, prefere mais colunas
+      if (
+        !bestFit ||
+        candidate.cardWidth > bestFit.cardWidth ||
+        (
+          Math.abs(candidate.cardWidth - bestFit.cardWidth) < 0.01 &&
+          candidate.cols > bestFit.cols
+        )
+      ) {
+        bestFit = candidate;
+      }
+    } else {
+      const overflow = totalGridHeight - availableHeight;
+
+      // se nada couber, pega o que menos estoura a altura
+      if (
+        !bestOverflow ||
+        overflow < bestOverflow.overflow ||
+        (
+          Math.abs(overflow - bestOverflow.overflow) < 0.01 &&
+          candidate.cols > bestOverflow.cols
+        )
+      ) {
+        bestOverflow = { ...candidate, overflow };
+      }
+    }
+  }
+
+  if (bestFit) return bestFit.cols;
+  return bestOverflow ? bestOverflow.cols : divisors[0];
+}
+
+function updateBoardLayout() {
+  const totalCards = roundDeck.length || (PAIRS_PER_ROUND * 2);
+  const cols = chooseBestColumns(totalCards);
+  board.style.setProperty("--board-cols", cols);
+}
+
     // =========================================================
     // EVENTOS
     // =========================================================
     startBtn.addEventListener("click", startGame);
     nextBtn.addEventListener("click", goToNextRound);
+    window.addEventListener("resize", updateBoardLayout);
+    updateStaticTexts();
+    updateHUD();
 
     // =========================================================
     // FUNÇÕES UTILITÁRIAS
@@ -567,26 +745,28 @@
         Ao terminar cada rodada, clique em <strong>Próxima Rodada</strong>.
         No final, veja os <strong>3 conceitos em que você mais errou</strong>.
         <div class="legend">
-          <span class="badge">Rodada 1 pronta</span>
-          <span class="badge ok">10 pares no tabuleiro</span>
-          <span class="badge bad">Atenção aos fatores percentuais</span>
+            <span class="badge">Rodada 1 pronta</span>
+            <span class="badge ok">${PAIRS_PER_ROUND} pares no tabuleiro</span>
+            <span class="badge bad">Atenção aos fatores percentuais</span>
         </div>
-      `;
-      roundHint.textContent = "Rodada 1: encontre os 10 pares.";
+        `;
+        roundHint.textContent = `Rodada 1: encontre os ${PAIRS_PER_ROUND} pares.`;
       loadRound();
     }
 
     function loadRound() {
-      selectedCards = [];
-      lockBoard = false;
-      matchedPairsInRound = 0;
-      attemptsInRound = 0;
-      nextBtn.disabled = true;
+        selectedCards = [];
+        lockBoard = false;
+        matchedPairsInRound = 0;
+        attemptsInRound = 0;
+        nextBtn.disabled = true;
 
-      roundDeck = createRoundDeck();
-      renderBoard();
-      updateHUD();
-    }
+        roundDeck = createRoundDeck();
+        renderBoard();
+        updateBoardLayout();
+        updateHUD();
+        }
+
 
     function renderBoard() {
       board.innerHTML = "";
@@ -648,7 +828,7 @@
           second.element.classList.remove("flipped");
           selectedCards = [];
           lockBoard = false;
-        }, 3000);
+        }, 900);
       }
     }
 
@@ -675,14 +855,14 @@
     function goToNextRound() {
       if (currentRound >= TOTAL_ROUNDS) return;
       currentRound++;
-      roundHint.textContent = `Rodada ${currentRound}: encontre os 10 pares.`;
-      messageBox.innerHTML = `
-        <strong>Nova rodada!</strong> O tabuleiro foi renovado com 20 cartas aleatórias.
+        roundHint.textContent = `Rodada ${currentRound}: encontre os ${PAIRS_PER_ROUND} pares.`;
+        messageBox.innerHTML = `
+        <strong>Nova rodada!</strong> O tabuleiro foi renovado com ${CARDS_PER_ROUND} cartas aleatórias.
         <div class="legend">
-          <span class="badge">Rodada ${currentRound}</span>
-          <span class="badge ok">10 pares novos sorteados</span>
+            <span class="badge">Rodada ${currentRound}</span>
+            <span class="badge ok">${PAIRS_PER_ROUND} pares novos sorteados</span>
         </div>
-      `;
+        `;
       loadRound();
     }
 
